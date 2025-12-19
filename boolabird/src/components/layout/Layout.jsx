@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '@components/ui/Navbar';
-import Footer from '@components/ui/Footer';
+
 
 const Layout = ({ children }) => {
   return (
@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
       <main className="flex-grow pt-20">
         {children}
       </main>
-      <Footer />
+     
     </div>
   );
 };
