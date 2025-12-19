@@ -1,155 +1,347 @@
-import React from 'react';
-import { Shield, Clock, DollarSign, Star, Home, Users, Award, Zap } from 'lucide-react';
-import SectionTitle from '@components/shared/SectionTitle';
-import Button from '@components/ui/Button';
+import React, { useState, useEffect } from 'react';
+import { User, Truck, ChevronLeft, ChevronRight, Home, Package, Shield, Clock, Star } from 'lucide-react';
+import SectionTitle from '../components/shared/SectionTitle';
+import Button from '../components/ui/Button';
 
 const ForCustomers = () => {
-  const benefits = [
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide2, setCurrentSlide2] = useState(0);
+
+  // Customer features slides
+  const customerSlides = [
     {
-      icon: Clock,
-      title: 'On-Demand Service',
-      description: 'Schedule pickups anytime, 24/7 service available',
-      color: 'text-green-600',
+      title: "Waste Management",
+      subtitle: "Smart & Efficient",
+      description: "Streamline your waste disposal with our intelligent scheduling system that adapts to your lifestyle.",
+      icon: <Package className="w-8 h-8 text-[#01BA76]" />
     },
     {
-      icon: Shield,
-      title: 'Safe & Secure',
-      description: 'Verified riders, contactless pickup, and sanitized process',
-      color: 'text-blue-600',
+      title: "Real-time Tracking",
+      subtitle: "Stay Informed",
+      description: "Track your waste collection in real-time with live updates and notifications throughout the process.",
+      icon: <Shield className="w-8 h-8 text-[#01BA76]" />
     },
     {
-      icon: DollarSign,
-      title: 'Affordable Pricing',
-      description: 'Transparent pricing with no hidden charges',
-      color: 'text-emerald-600',
-    },
-    {
-      icon: Star,
-      title: 'Premium Service',
-      description: 'Trained professionals with quality equipment',
-      color: 'text-amber-600',
-    },
-    {
-      icon: Home,
-      title: 'Home & Office',
-      description: 'Service for residential and commercial properties',
-      color: 'text-purple-600',
-    },
-    {
-      icon: Users,
-      title: 'Family Plans',
-      description: 'Special packages for households and communities',
-      color: 'text-pink-600',
-    },
+      title: "Flexible Scheduling",
+      subtitle: "24/7 Service",
+      description: "Book pickups anytime that suits you. Our service works around your schedule, not the other way around.",
+      icon: <Clock className="w-8 h-8 text-[#01BA76]" />
+    }
   ];
 
-  const wasteTypes = [
-    { type: 'Household Waste', color: 'bg-green-100 text-green-800' },
-    { type: 'Recyclables', color: 'bg-blue-100 text-blue-800' },
-    { type: 'E-Waste', color: 'bg-purple-100 text-purple-800' },
-    { type: 'Organic Waste', color: 'bg-emerald-100 text-emerald-800' },
-    { type: 'Plastic Waste', color: 'bg-amber-100 text-amber-800' },
-    { type: 'Hazardous Waste', color: 'bg-red-100 text-red-800' },
+  // Rider features slides
+  const riderSlides = [
+    {
+      title: "Drive, Collect, Earn",
+      subtitle: "Simple Process",
+      description: "Start earning immediately with our straightforward pickup and delivery system designed for maximum efficiency.",
+      icon: <Truck className="w-8 h-8 text-[#01BA76]" />
+    },
+    {
+      title: "Flexible Hours",
+      subtitle: "Work Your Way",
+      description: "Choose your own schedule. Work full-time or part-time, day or night - you're in control.",
+      icon: <Clock className="w-8 h-8 text-[#01BA76]" />
+    },
+    {
+      title: "Support & Training",
+      subtitle: "Full Assistance",
+      description: "Get comprehensive training, equipment support, and 24/7 assistance throughout your journey.",
+      icon: <Shield className="w-8 h-8 text-[#01BA76]" />
+    }
   ];
+
+  // Auto-slide functionality
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % customerSlides.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide2((prev) => (prev + 1) % riderSlides.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <section id="for-customers" className="section-padding bg-gray-50">
+    <section id="for-customers" className="section-padding" style={{ backgroundColor: '#004129' }}>
       <div className="container-custom">
-        <SectionTitle
-          subtitle="For Customers"
-          title="Smart Waste Management Made Simple"
-          align="center"
-        />
-        
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-          {/* Left Column - Benefits */}
-          <div>
-            <div className="grid sm:grid-cols-2 gap-6">
-              {benefits.map((benefit, index) => (
-                <div key={index} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                  <div className={`w-12 h-12 rounded-lg ${benefit.color.replace('text', 'bg')} bg-opacity-20 flex items-center justify-center mb-4`}>
-                    <benefit.icon className={`w-6 h-6 ${benefit.color}`} />
-                  </div>
-                  <h4 className="text-lg font-bold mb-2">{benefit.title}</h4>
-                  <p className="text-gray-600 text-sm">{benefit.description}</p>
+        {/* Main Title Section */}
+        <div className="mb-16">
+          <SectionTitle
+            subtitle="Our Services"
+            title="Join The Network"
+            description="Whether you need service or want to provide it"
+            align="center"
+            dark={false}
+          />
+        </div>
+
+        {/* Two Large Glassy Cards */}
+        <div className="grid lg:grid-cols-2 gap-8 mb-20">
+          {/* Left Card - For Customers */}
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 relative overflow-hidden">
+            {/* Glass Background Icons */}
+            <div className="absolute top-4 left-4 w-14 h-14 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 flex items-center justify-center">
+              <User className="w-7 h-7 text-white" />
+            </div>
+            
+            {/* House Icon from public/images */}
+            <div className="absolute top-6 right-6">
+              <div className="relative">
+                
+                <div className="relative w-30 h-30  flex items-center justify-center">
+                  <img 
+                    src="/images/house.png" 
+                    alt="House"
+                    className="w-30 h-30"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.style.display = 'none';
+                      e.target.parentElement.innerHTML = `
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M24 6L40 18V42H8V18L24 6Z" stroke="#01BA76" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M18 42V24H30V42" stroke="#01BA76" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      `;
+                    }}
+                  />
                 </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Right Column - Stats & CTA */}
-          <div className="bg-gradient-to-br from-green-500 to-blue-600 rounded-3xl p-8 text-white">
-            <div className="mb-8">
-              <div className="inline-flex items-center px-4 py-2 bg-white/20 rounded-full mb-6">
-                <Award className="w-5 h-5 mr-2" />
-                <span className="text-sm font-semibold">Trusted by 50,000+ Customers</span>
               </div>
+            </div>
+
+            <div className="pt-20">
+              <h3 className="text-3xl font-bold text-white mb-2">For Customers</h3>
+              <h5 className='text-white mb-6'>Schedule pickups instantly and track your history</h5>
               
-              <h3 className="text-3xl font-bold mb-4">Join the Clean City Movement</h3>
-              <p className="text-green-100 mb-8">
-                Be part of the solution. Every pickup contributes to a cleaner, greener city.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-3 gap-6 mb-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold">4.8★</div>
-                <div className="text-sm text-green-100">App Rating</div>
+              <div className="space-y-4 mb-8">
+                <p className="text-white/90">
+                  <span className="text-[#01BA76] font-semibold">Transparent pricing</span> 
+                </p>
+                <p className="text-white/90">
+                  <span className="text-[#01BA76] font-semibold">Reliable Scheduling</span> 
+                </p>
+                <p className="text-white/90">
+                  <span className="text-[#01BA76] font-semibold">Affordable</span> 
+                </p>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold">98%</div>
-                <div className="text-sm text-green-100">Satisfaction</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold">15min</div>
-                <div className="text-sm text-green-100">Avg. Response</div>
-              </div>
-            </div>
-            
-            <Button className="w-full bg-white text-green-600 hover:bg-green-50">
-              <Zap className="w-5 h-5 mr-2" />
-              Download Customer App
-            </Button>
-          </div>
-        </div>
-        
-        {/* Waste Types */}
-        <div>
-          <h3 className="text-2xl font-bold text-center mb-8">We Handle All Types of Waste</h3>
-          <div className="flex flex-wrap justify-center gap-3">
-            {wasteTypes.map((waste, index) => (
-              <span
-                key={index}
-                className={`px-4 py-2 rounded-full ${waste.color} font-medium`}
+
+              <Button 
+                variant="secondary" 
+                className="w-full mt-8 hover:scale-105"
               >
-                {waste.type}
-              </span>
-            ))}
+                Get Started as a Customer
+              </Button>
+            </div>
+          </div>
+
+          {/* Right Card - For Riders */}
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 relative overflow-hidden">
+            {/* Truck Icon */}
+            <div className="absolute top-4 left-4 w-14 h-14 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 flex items-center justify-center">
+              <Truck className="w-7 h-7 text-white" />
+            </div>
+            
+            {/* Gloves Icon from public/images */}
+            <div className="absolute top-6 right-6">
+              <div className="relative">
+                
+                <div className="relative w-30 h-30 flex items-center justify-center">
+                  <img 
+                    src="/images/gloves.png" 
+                    alt="Gloves"
+                    className="w-30 h-30"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.style.display = 'none';
+                      e.target.parentElement.innerHTML = `
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M36 24V42H12V24C12 17.3726 17.3726 12 24 12C30.6274 12 36 17.3726 36 24Z" stroke="#01BA76" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M16 22V18C16 14.6863 18.6863 12 22 12H26C29.3137 12 32 14.6863 32 18V22" stroke="#01BA76" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      `;
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-20">
+              <h3 className="text-3xl font-bold text-white mb-2">For Riders</h3>
+              <h5 className='text-white mb-6'>Register to be a truck driver and get paid for pickups</h5>
+              
+              <div className="space-y-4 mb-8">
+                <p className="text-white/90">
+                  <span className="text-[#01BA76] font-semibold">Monthly Payout</span> 
+                </p>
+                <p className="text-white/90">
+                  <span className="text-[#01BA76] font-semibold">Flexible Hours</span> 
+                </p>
+                <p className="text-white/90">
+                  <span className="text-[#01BA76] font-semibold">Bonuses and Icentitves</span>
+                </p>
+              </div>
+
+              <Button 
+                variant="secondary" 
+                className="w-full mt-8 hover:scale-105"
+              >
+                Join as a Rider
+              </Button>
+            </div>
           </div>
         </div>
-        
-        {/* Testimonial */}
-        <div className="mt-12 max-w-3xl mx-auto">
-          <div className="bg-white p-8 rounded-3xl shadow-lg">
-            <div className="flex items-center mb-6">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center text-white text-2xl font-bold mr-4">
-                SJ
+
+        {/* Image + Carousel Section - Customer Focus */}
+        <div className="mb-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left - Large Image */}
+            <div className="relative h-[450px] rounded-3xl overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#416655] to-[#607E6A] flex items-center justify-center">
+                {/* Image from public/images */}
+                <img 
+                  src="/images/trash.png" 
+                  alt="Customer Service"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.style.display = 'none';
+                    e.target.parentElement.innerHTML = `
+                      <div class="w-full h-full flex items-center justify-center">
+                        <div class="text-center">
+                          <Home class="w-24 h-24 text-white/30 mx-auto mb-4" />
+                          <p class="text-white/50 text-lg">Customer Feature Image</p>
+                        </div>
+                      </div>
+                    `;
+                  }}
+                />
               </div>
-              <div>
-                <h4 className="text-xl font-bold">Sarah Johnson</h4>
-                <p className="text-gray-600">Homeowner, 2 years with Boolabird</p>
-              </div>
-              <div className="ml-auto flex">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-amber-400 fill-current" />
+            </div>
+
+            {/* Right - Carousel */}
+            <div className="relative">
+             
+              
+
+              {/* Carousel Content */}
+              <div className="relative h-[300px] overflow-hidden">
+                {customerSlides.map((slide, index) => (
+                  <div
+                    key={index}
+                    className={`absolute inset-0 transition-all duration-500 ease-in-out ${
+                      index === currentSlide ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'
+                    }`}
+                  >
+                    <div className="flex items-start mb-6">
+                      <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 flex items-center justify-center mr-4">
+                        {slide.icon}
+                      </div>
+                      <div>
+                        <h4 className="text-2xl font-bold text-white mb-1">{slide.title}</h4>
+                        <p className="text-[#01BA76] font-medium">{slide.subtitle}</p>
+                      </div>
+                    </div>
+                    <p className="text-white/80 text-lg mb-8">{slide.description}</p>
+                  </div>
                 ))}
               </div>
+
+              {/* Indicators */}
+              <div className="flex gap-2 mb-8">
+                {customerSlides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`h-1 rounded-full transition-all duration-300 ${
+                      index === currentSlide ? 'bg-[#01BA76] w-8' : 'bg-white/30 w-4 hover:bg-white/50'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* Fixed Button */}
+              <Button variant="secondary" className="w-full lg:w-auto">
+                Get Started as a Customer
+              </Button>
             </div>
-            <blockquote className="text-lg italic text-gray-700">
-              "Boolabird has transformed how we manage household waste. The app is incredibly easy to use, 
-              and their riders are always punctual and professional. Knowing that our waste is being properly 
-              recycled gives us peace of mind."
-            </blockquote>
+          </div>
+        </div>
+
+        {/* Reversed Section - Rider Focus */}
+        <div>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left - Carousel */}
+            <div className="relative order-2 lg:order-1">
+           
+              {/* Carousel Content */}
+              <div className="relative h-[300px] overflow-hidden">
+                {riderSlides.map((slide, index) => (
+                  <div
+                    key={index}
+                    className={`absolute inset-0 transition-all duration-500 ease-in-out ${
+                      index === currentSlide2 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full'
+                    }`}
+                  >
+                    <div className="flex items-start mb-6">
+                      <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 flex items-center justify-center mr-4">
+                        {slide.icon}
+                      </div>
+                      <div>
+                        <h4 className="text-2xl font-bold text-white mb-1">{slide.title}</h4>
+                        <p className="text-[#01BA76] font-medium">{slide.subtitle}</p>
+                      </div>
+                    </div>
+                    <p className="text-white/80 text-lg mb-8">{slide.description}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Indicators */}
+              <div className="flex gap-2 mb-8">
+                {riderSlides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide2(index)}
+                    className={`h-1 rounded-full transition-all duration-300 ${
+                      index === currentSlide2 ? 'bg-[#01BA76] w-8' : 'bg-white/30 w-4 hover:bg-white/50'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* Fixed Button */}
+              <Button variant="secondary" className="w-full lg:w-auto">
+                Join as a Rider
+              </Button>
+            </div>
+
+            {/* Right - Large Image */}
+            <div className="relative h-[450px] rounded-3xl overflow-hidden order-1 lg:order-2">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#416655] to-[#607E6A] flex items-center justify-center">
+                {/* Image from public/images */}
+                <img 
+                  src="/images/driver.png" 
+                  alt="Rider Service"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.style.display = 'none';
+                    e.target.parentElement.innerHTML = `
+                      <div class="w-full h-full flex items-center justify-center">
+                        <div class="text-center">
+                          <Truck class="w-24 h-24 text-white/30 mx-auto mb-4" />
+                          <p class="text-white/50 text-lg">Rider Feature Image</p>
+                        </div>
+                      </div>
+                    `;
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -157,4 +349,4 @@ const ForCustomers = () => {
   );
 };
 
-export default ForCustomers; 
+export default ForCustomers;
