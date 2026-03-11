@@ -365,7 +365,7 @@ function JobsPage() {
             <h2 className="text-2xl font-bold text-gray-800 mb-2">Apply for a Position</h2>
             <p className="text-gray-600 mb-6">Fill out the form below to apply. All fields marked * are required.</p>
 
-            <form onSubmit={handleApplicationSubmit} className="space-y-6">
+            <form onSubmit={handleApplicationSubmit} className="space-y-6" encType="multipart/form-data">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
