@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Briefcase, MapPin, CreditCard, Clock, Upload, Send, Mail, Phone, User, FileText, ArrowUp } from "lucide-react";
+import { Briefcase, MapPin, CreditCard, Clock, Upload, Send, Mail, Phone, User, FileText, ArrowLeft } from "lucide-react";
 import Toast from "@components/layout/Toast";
 
 function JobsPage() {
@@ -143,7 +143,7 @@ function JobsPage() {
 
   const handleApplicationSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!applicationData.name || !applicationData.email || !applicationData.position || !applicationData.resume) {
       setToast({
         visible: true,
@@ -157,7 +157,6 @@ function JobsPage() {
     setIsSubmitting(true);
 
     try {
-      // Create FormData for email submission
       const formData = new FormData();
       formData.append('name', applicationData.name);
       formData.append('email', applicationData.email);
@@ -165,8 +164,7 @@ function JobsPage() {
       formData.append('position', applicationData.position);
       formData.append('coverLetter', applicationData.coverLetter || 'Not provided');
       formData.append('resume', applicationData.resume);
-      
-      // Send to FormSubmit.co (free service that emails to your address)
+
       const response = await fetch('https://formsubmit.co/ajax/jobs@boolabird.com', {
         method: 'POST',
         body: formData
@@ -180,7 +178,6 @@ function JobsPage() {
           duration: 6000,
         });
 
-        // Reset form
         setApplicationData({
           name: "",
           email: "",
@@ -189,8 +186,7 @@ function JobsPage() {
           coverLetter: "",
           resume: null
         });
-        
-        // Reset file input
+
         const fileInput = document.querySelector('input[type="file"]');
         if (fileInput) fileInput.value = '';
       } else {
@@ -213,21 +209,17 @@ function JobsPage() {
     setToast({ ...toast, visible: false });
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <section id="jobs" className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-20">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 -mt-20">
       <Toast toast={toast} onClose={closeToast} />
-      
+
       {/* Hero Section */}
       <div className="relative h-80 bg-[#004129] overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{ backgroundImage: "url('/images/gallery3.jpg')" }}
         ></div>
-        
+
         <div className="relative z-10 h-full flex items-center justify-center text-center px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -243,15 +235,15 @@ function JobsPage() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-16 relative z-20">
-        {/* Back to Top Button */}
-        <button
-          onClick={scrollToTop}
-          className="inline-flex items-center text-[#004129] hover:text-[#003520] mb-6 font-medium group cursor-pointer"
+      <div className="max-w-6xl mx-auto px-4 py-16">
+        {/* Back Navigation */}
+        <a
+          href="/"
+          className="inline-flex items-center text-[#004129] hover:text-[#003520] mb-6 font-medium group"
         >
-          <ArrowUp className="w-4 h-4 mr-2 group-hover:-translate-y-1 transition-transform" />
-          Back to Top
-        </button>
+          <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+          Back to Home
+        </a>
 
         {/* Tabs */}
         <motion.div
@@ -321,7 +313,7 @@ function JobsPage() {
                   <button
                     onClick={() => {
                       setActiveTab("apply");
-                      setApplicationData({...applicationData, position: job.title});
+                      setApplicationData({ ...applicationData, position: job.title });
                     }}
                     className="mt-4 md:mt-0 bg-[#004129] text-white px-6 py-2 rounded-sm hover:bg-[#003520] cursor-pointer transition-colors font-semibold"
                   >
@@ -372,13 +364,11 @@ function JobsPage() {
           >
             <h2 className="text-2xl font-bold text-gray-800 mb-2">Apply for a Position</h2>
             <p className="text-gray-600 mb-6">Fill out the form below to apply. All fields marked * are required.</p>
-            
+
             <form onSubmit={handleApplicationSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name *
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <input
@@ -394,9 +384,7 @@ function JobsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address *
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <input
@@ -414,9 +402,7 @@ function JobsPage() {
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
                   <div className="relative">
                     <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <input
@@ -431,9 +417,7 @@ function JobsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Position Applying For *
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Position Applying For *</label>
                   <div className="relative">
                     <Briefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <select
@@ -540,7 +524,7 @@ function JobsPage() {
           className="bg-green-50 rounded-2xl p-8 mt-12 border border-green-200"
         >
           <h3 className="text-2xl font-bold text-[#004129] mb-6 text-center">Why Work With BoolaBird?</h3>
-          
+
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -549,7 +533,7 @@ function JobsPage() {
               <h4 className="font-semibold text-gray-800 mb-2">Competitive Compensation</h4>
               <p className="text-gray-600">Fair wages and performance-based incentives</p>
             </div>
-            
+
             <div className="text-center">
               <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Clock className="w-8 h-8 text-[#004129]" />
@@ -557,7 +541,7 @@ function JobsPage() {
               <h4 className="font-semibold text-gray-800 mb-2">Flexible Schedules</h4>
               <p className="text-gray-600">Work hours that fit your lifestyle</p>
             </div>
-            
+
             <div className="text-center">
               <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Briefcase className="w-8 h-8 text-[#004129]" />
@@ -577,9 +561,8 @@ function JobsPage() {
           </div>
         </motion.div>
       </div>
-    </section>
+    </div>
   );
 }
 
-// Both default and named exports
 export default JobsPage;
