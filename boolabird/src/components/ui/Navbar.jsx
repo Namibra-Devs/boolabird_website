@@ -33,6 +33,7 @@ const Navbar = () => {
     { label: 'How It Works', href: '#how-it-works' },
     { label: 'For Customers', href: '#for-customers' },
     { label: 'For Riders', href: '#for-riders' },
+    { label: 'Jobs', href: '#jobs' },
   ];
 
   return (
